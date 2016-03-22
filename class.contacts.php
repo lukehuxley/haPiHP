@@ -97,6 +97,24 @@ class HubSpot_Contacts extends HubSpot_BaseClient{
     }
     
     /**
+    * Batch Create or Update a Group of Contacts
+    *
+    * @param contacts: array of contacts and their property values
+    *
+    * @return Response body from HTTP POST request
+    *
+    * @throws HubSpot_Exception
+    **/
+    public function create_or_update_batch($contacts){
+        $endpoint = 'contact/batch/';
+        try{
+            return json_decode($this->execute_JSON_post_request($this->get_request_url($endpoint,null),json_encode($contacts)));
+        } catch (HubSpot_Exception $e) {
+            throw new HubSpot_Exception('Unable to create or update contacts: ' . $e);
+        }
+    }
+    
+    /**
 	* Delete a Contact
 	*
 	*@param vid: Unique ID for the contact
